@@ -1,0 +1,20 @@
+stages:
+  data_ingestion:
+    cmd: python ./src/data/data_ingestion.py ./data/raw
+    deps:
+      - ./src/data/data_ingestion.py
+    outs: 
+      - ./data/raw/rawdata.csv
+  
+  make_dataset:
+    cmd: python ./src/data/make_dataset.py ./data/raw/rawdata.csv
+    deps:
+      - ./data/raw/rawdata.csv
+    outs:
+      - ./data/processed/
+  
+  build_features:
+    cmd: python ./src/features/build_features.py ./data/processed ./data/interim
+    outs:
+      - ./data/interim/
+
