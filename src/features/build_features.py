@@ -57,8 +57,8 @@ def feature_engineering(dataset):
     dataset['no_of_words'] = dataset['processed_message'].apply(lambda x: len(nltk.word_tokenize(x)))
     dataset['no_of_sentences'] = dataset['processed_message'].apply(lambda x: len(nltk.sent_tokenize(x)))
     
-    return dataset[['processed_message', 'no_of_characters', 'no_of_words', 'no_of_sentences']]
-    # return dataset
+    # return dataset[['processed_message', 'no_of_characters', 'no_of_words', 'no_of_sentences',"target"]]
+    return dataset.drop(columns=["message"])
 
 
 def saveFeatureEngineering_files(trainingfile,testingfile,savingPathlocation):
@@ -92,9 +92,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-    
-
-
-
-

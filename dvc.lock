@@ -30,6 +30,23 @@ stages:
     outs:
     - path: ./data/interim/
       hash: md5
-      md5: fa99c593eef3d887215adcfe1e91b95e.dir
-      size: 309711
+      md5: 90eb0af694bfbe02de9227ce38a4857b.dir
+      size: 359530
       nfiles: 2
+  train_model:
+    cmd: python ./src/models/train_model.py ./data/interim
+    deps:
+    - path: ./data/interim
+      hash: md5
+      md5: 90eb0af694bfbe02de9227ce38a4857b.dir
+      size: 359530
+      nfiles: 2
+    outs:
+    - path: ./models/model.pkl
+      hash: md5
+      md5: 7aa55b4cc45fd741939249346227a542
+      size: 131740
+    - path: ./models/vectorizer.pkl
+      hash: md5
+      md5: 600b810faf412d6e9755e5dfdb4d4ac2
+      size: 62980

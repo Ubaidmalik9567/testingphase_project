@@ -18,3 +18,14 @@ stages:
     outs:
       - ./data/interim/
 
+  train_model:
+    cmd: python ./src/models/train_model.py ./data/interim
+    deps:
+      - ./data/interim
+    outs:
+      - ./models/model.pkl
+      - ./models/vectorizer.pkl
+  # visualize:
+  #   cmd: python ./src/visualization/visualize.py ./models/model.pkl ./models/model.pkl
+
+
