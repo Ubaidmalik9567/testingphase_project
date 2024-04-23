@@ -1,0 +1,28 @@
+name: CI/CD Pipeline
+on: #  on push work as trigger which tell agent/assitant to run every thing which below push
+  push: # and 1st step is to getting code from github
+
+jobs: # jobs me that action/task you need to perform
+  build:
+    runs-on: windows-latest
+
+    steps: # in which agent run  the task and what should be done there.
+    # 1st step(in which we tell to agent get code,setup python envoirment or cml)
+      - name: Checkout code from GitHub repository # uses mean use another github user's actionI
+        uses: actions/checkout@v2 # action use for getting source code of project from git hub repo && checkout is type of action and v is version 
+
+      - name: Python Setup
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+# now istall dependencies
+      - name: install  dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+        
+      - name: run main/app or any file
+        run: |
+          python predict_model.py
+
