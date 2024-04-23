@@ -24,12 +24,12 @@ jobs: # jobs me that action/task you need to perform
         
       - name: run main/app or any file
         run: |
-          python predict_model.py
+          python app.py
       
-      - name: Create CML  Report
-        env:
-          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "# file report " >> 
+      # - name: Create CML  Report
+      #   env:
+      #     REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     echo "# file report " >> 
 
 

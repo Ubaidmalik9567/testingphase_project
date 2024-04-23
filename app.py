@@ -11,3 +11,4 @@
 # print(dataset.head(2))
 # dataset.rename(columns={"Unnamed: 0":"index","COL 1":"target","COL 2":"message"},inplace=True)
 # print(dataset.head(2))
+print("cicd run")
