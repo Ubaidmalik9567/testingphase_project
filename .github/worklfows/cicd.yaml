@@ -24,7 +24,7 @@ jobs: # jobs me that action/task you need to perform
         
       - name: run main/app or any file
         run: |
-          python app.py
+          python predict_model.py
       
       # - name: Create CML  Report
       #   env:

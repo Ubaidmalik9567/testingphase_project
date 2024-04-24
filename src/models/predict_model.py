@@ -105,9 +105,9 @@ def predict(text, model, vectorizer):
     prediction = model.predict(vectorized_text)
     # Convert prediction to "ham" or "spam"
     if prediction[0] == 0:
-        return "ham"
+        return "ham Email"
     elif prediction[0] == 1:
-        return "spam"
+        return "spam Email"
 
 # HTML content for the web interface
 html_content = """
