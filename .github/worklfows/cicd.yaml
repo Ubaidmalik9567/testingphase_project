@@ -1,6 +1,9 @@
 name: CI/CD Pipeline
 on: #  on push work as trigger which tell agent/assitant to run every thing which below push
   push: # and 1st step is to getting code from github
+     branches:
+      - main # Trigger the workflow only for changes pushed to the main branch
+
 
 jobs: # jobs me that action/task you need to perform
   build:
