@@ -1,14 +1,14 @@
+#checkout action: Fetches the contents of your repository (i.e., checks out your code) into the runner environment where your workflow is executing.
+#setup-python action: Sets up the Python environment in your GitHub Actions runner, allowing you to specify the version of Python you want to use and setting up the appropriate environment variables.
+
 name: CI/CD Pipeline
 on: #  on push work as trigger which tell agent/assitant to run every thing which below push
   push: # and 1st step is to getting code from github
-     branches:
-      - main # Trigger the workflow only for changes pushed to the main branch
-
 
 jobs: # jobs me that action/task you need to perform
   build:
     runs-on: windows-latest
-
+                                          
     steps: # in which agent run  the task and what should be done there.
     # 1st step(in which we tell to agent get code,setup python envoirment or cml)
       - name: Checkout code from GitHub repository # uses mean use another github user's actionI
@@ -23,16 +23,19 @@ jobs: # jobs me that action/task you need to perform
       - name: install  dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements.txt 
         
-      - name: run main/app or any file
+      - name: run main/app file
         run: |
           python predict_model.py
-      
-      # - name: Create CML  Report
-      #   env:
-      #     REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     echo "# file report " >> 
 
 
+
+
+
+        
+
+          
+        
+  
+    
