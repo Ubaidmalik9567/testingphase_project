@@ -2,7 +2,18 @@ name: Deploy to Amazon ECS
 
 on:
   push:
+    
+# env:
+#   AWS_REGION: MY_AWS_REGION                   # set this to your preferred AWS region, e.g. us-west-1
+#   ECR_REPOSITORY: MY_ECR_REPOSITORY           # set this to your Amazon ECR repository name
+#   ECS_SERVICE: MY_ECS_SERVICE                 # set this to your Amazon ECS service name
+#   ECS_CLUSTER: MY_ECS_CLUSTER                 # set this to your Amazon ECS cluster name
+#   ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION # set this to the path to your Amazon ECS task definition
+#                                                # file, e.g. .aws/task-definition.json
+#   CONTAINER_NAME: MY_CONTAINER_NAME           # set this to the name of the container in the
+#                                                # containerDefinitions section of your task definition
 
+# that use for linux          sudo apt-get update , sudo apt-get Install -y jq unzip
 permissions:
   id-token: write
   contents: read
@@ -10,7 +21,7 @@ permissions:
 jobs:
   Integration:
     name: Continuous Integration
-    runs-on: windows-latest
+    runs-on: self-host # windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -55,9 +66,9 @@ jobs:
           # Build a docker container and
           # push it to ECR so that it can
           # be deployed to ECS.
-          docker build -t "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}" .
-          docker push "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
-          echo "::set-output name=image::${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 
   Continuous-Deployment:
     name: Pull to ecr and run it into ec2
@@ -81,7 +92,7 @@ jobs:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
           IMAGE_TAG: latest
         run: |
-          docker pull "${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+          docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         
       - name: delete previous image
         run: |
@@ -89,4 +100,6 @@ jobs:
         
       - name: run docker image to user server
         run: |
-          docker run -d -p 8080:8080 --name=hamspam -e "AWS_ACCESS_KEY_ID=${{ secrets.AWS_SECRET_ACCESS_KEY }}" -e "AWS_REGION=${{ secrets.AWS_REGION }}" "${{ secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest"
+          docker run -d -p 8080:8080 --name=hamspam -e "AWS_ACCESS_KEY_ID=${{ secrets.AWS_SECRET_ACCESS_KEY }}" -e "AWS_REGION=${{ secrets.AWS_REGION }}" ${{ secrets.AWS_ECR_LOGIN_URI}}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
+
+  
