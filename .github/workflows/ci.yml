@@ -116,7 +116,7 @@ permissions:
 jobs:
   Integration:
     name: Continuous Integration
-    runs-on: selfhost-ubuntu-runner # ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -130,7 +130,7 @@ jobs:
   build-and-push-ecr-image:
     name: Continuous Delivery/ Push to ECR
     needs: Integration
-    runs-on: selfhost-ubuntu-runner # ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -168,7 +168,7 @@ jobs:
   Continuous-Deployment:
     name: Pull to ecr and run it into ec2
     needs: build-and-push-ecr-image
-    runs-on: selfhost-ubuntu-runner # ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
