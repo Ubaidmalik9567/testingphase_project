@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testingphase_project
+spec:
+  selector:
+    matchLabels:
+      app: testingphase_project
+  template:
+    metadata:
+      labels:
+        app: testingphase_project
+    spec:
+      containers:
+      - name: testingphase_project
+        image: <Image>
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8000
