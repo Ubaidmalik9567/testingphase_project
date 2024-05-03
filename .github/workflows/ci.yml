@@ -62,7 +62,7 @@ jobs:
   Continuous-Deployment:
     name: Pull to ecr and run it into ec2
     needs: build-and-push-ecr-image
-    runs-on: hamspam-selfhost-runner # ubuntu-latest
+    runs-on: ip-172-31-38-106 # hamspam-selfhost-runner # ubuntu-latest
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
