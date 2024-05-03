@@ -42,7 +42,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 USER appuser
 
 # Copy the source code into the container.
-COPY predict_model.py /app/predict_model.py
+COPY src/models/predict_model.py /app/predict_model.py
 COPY model.pkl /app/model.pkl
 COPY src/ /app/src/
 COPY requirements.txt /app/requirements.txt
