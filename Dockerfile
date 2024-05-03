@@ -42,7 +42,10 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 USER appuser
 
 # Copy the source code into the container.
-COPY . .
+COPY predict_model.py /app/predict_model.py
+COPY model.pkl /app/model.pkl
+COPY src/ /app/src/
+COPY requirements.txt /app/requirements.txt
 
 # Expose the port that the application listens on.
 EXPOSE 8000
