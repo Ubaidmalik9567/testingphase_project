@@ -10,22 +10,30 @@ import pickle
 def dataTransformation(dataset_path):
     ln = LabelEncoder()
     cv = CountVectorizer() 
-    # minmax = MinMaxScaler()
+    minmax = MinMaxScaler()
 
     dataset = pd.read_csv(dataset_path)
-    # dataset["target"] = ln.fit_transform(dataset["target"])
-    # dataset["processed_message"] = cv.fit_transform(dataset["transformed_text"]).toarray()
-    # dataset[['no_of_characters','no_of_words','no_of_sentence']] = minmax.fit_transform(dataset[['no_of_characters','no_of_words','no_of_sentence']])  
-    
-    dataset.dropna(inplace=True)
-    xtrain = cv.fit_transform(dataset["processed_message"]).toarray()
-    ytrain = ln.fit_transform(dataset["target"])
+    dataset.dropna(subset=["processed_message"], inplace=True)
 
-    return xtrain, ytrain, cv
+    processed_message_vectorized = cv.fit_transform(dataset["processed_message"]).toarray()
+    processed_message_df = pd.DataFrame(processed_message_vectorized, columns=[f"feature_{i}" for i in range(processed_message_vectorized.shape[1])])
+    
+    dataset[['no_of_characters','no_of_words']] = minmax.fit_transform(dataset[['no_of_characters','no_of_words']])  
+    dataset["target"] = ln.fit_transform(dataset["target"])
+    
+    x_train = pd.concat([processed_message_df, dataset[['no_of_characters', 'no_of_words', 'no_of_sentences']].reset_index(drop=True)], axis=1)
+    y_train = dataset["target"]
+
+    # xtrain = cv.fit_transform(dataset["processed_message"]).toarray()
+    # ytrain = ln.fit_transform(dataset["target"])
+
+    return x_train, y_train, cv
 
 def train_model(x_train,y_train):
     lr = LogisticRegression() 
     lr.fit(x_train,y_train)
+     # Print the number of features used by the model
+    print(f"Number of features used by Logistic Regression: {lr.coef_.shape[1]}")
     
     return lr
 

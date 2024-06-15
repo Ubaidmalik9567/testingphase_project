@@ -44,9 +44,9 @@ stages:
     outs:
     - path: ./models/model.pkl
       hash: md5
-      md5: 7aa55b4cc45fd741939249346227a542
-      size: 131740
+      md5: 2db811396e660b8692424194accd5a7f
+      size: 212769
     - path: ./models/vectorizer.pkl
       hash: md5
-      md5: 600b810faf412d6e9755e5dfdb4d4ac2
+      md5: 978cc59ef448593dd548f1768fba7161
       size: 62980

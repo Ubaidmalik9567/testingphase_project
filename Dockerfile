@@ -43,12 +43,13 @@ USER appuser
 
 # Copy the source code into the container.
 COPY src/models/predict_model.py /app/predict_model.py
-COPY model.pkl /app/model.pkl
+COPY models/model.pkl /app/model.pkl
 COPY src/ /app/src/
 COPY requirements.txt /app/requirements.txt
+COPY models/vectorizer.pkl /app/vectorizer.pkl
 
 # Expose the port that the application listens on.
-EXPOSE 8000
+EXPOSE 8000 
 
 # Run the application.
 CMD uvicorn 'src.models.predict_model:app' --host=0.0.0.0 --port=8000
